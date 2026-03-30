@@ -136,13 +136,13 @@ Statistics        Avg      Stdev        Max
 ### Load Testing Different Scenarios
 
 ```sh
-# Light load - 50 concurrent users, 1000 requests
+# Light load - 50 concurrent connections, 1000 requests
 bombardier -n 1000 -c 50 http://localhost:8000/healthz
 
-# Medium load - 100 concurrent users, 2500 requests with 10s duration
+# Medium load - 100 concurrent connections, 2500 requests with 10s duration
 bombardier -d 10s -n 2500 -c 100 http://localhost:8000/healthz
 
-# Heavy load - 500 concurrent users, 10000 requests
+# Heavy load - 500 concurrent connections, 10000 requests
 bombardier -d 10s -n 10000 -c 500 http://localhost:8000/healthz
 
 # Sustained load test - 30 seconds duration
