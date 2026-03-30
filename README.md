@@ -115,7 +115,7 @@ Here are example benchmarks using [bombardier](https://github.com/codesenberg/bo
 **Test Configuration:**
 - **Concurrent connections**: 125
 - **Number of requests**: 100,000
-- **Target**: `GET /healthz`
+- **Target endpoint**: `GET /healthz`
 - **Environment**: local development server
 
 ```sh
