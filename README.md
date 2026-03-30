@@ -7,11 +7,11 @@
 [![Contribution](https://img.shields.io/badge/Contribute-GitHub-brightgreen)](https://github.com/riipandi/radium/graphs/contributors)
 <!-- ![Build Status](https://img.shields.io/github/actions/workflow/status/riipandi/radium/ci.yml?branch=main) -->
 
-Radium is a unified HTTP API gateway for accessing multiple AI model providers. Built in Rust as a
-resource-efficient, high-performance open-source LLM proxy, Radium acts as a central orchestrator - handling
-every request and response with precision. It delivers uniform endpoints for text and chat completions,
-intelligent fallback logic, and complete observability, transforming client-to-LLM interactions into
-a seamless, elegantly managed experience.
+Radium is an open-source, unified HTTP API gateway for accessing multiple AI model providers. Built in Rust
+as a resource-efficient, high-performance open-source LLM proxy, Radium acts as a central orchestrator,
+handling every request and response with precision. It delivers uniform endpoints for text and chat
+completions, intelligent fallback logic, and complete observability, transforming client-to-LLM interactions
+into a seamless, elegantly managed experience.
 
 ## Key Features
 
