@@ -78,7 +78,7 @@ fn default_from_email() -> String {
 }
 
 fn default_from_name() -> String {
-    "Sorai".to_string()
+    "Radium".to_string()
 }
 
 fn default_smtp_host() -> String {

@@ -1,10 +1,10 @@
 use axum::extract::State;
-use axum::http::{header, StatusCode};
+use axum::http::{StatusCode, header};
 use axum::response::{IntoResponse, Response};
 use metrics_exporter_prometheus::PrometheusHandle;
 use serde::{Deserialize, Serialize};
 
-use crate::http::response::{create_error, ApiResponse, ErrorCode, ErrorTypeKind, RequestId};
+use crate::http::response::{ApiResponse, ErrorCode, ErrorTypeKind, RequestId, create_error};
 
 /// Health check response data
 #[derive(Debug, Serialize, Deserialize)]
@@ -26,7 +26,7 @@ pub async fn health_check(RequestId(request_id): RequestId) -> impl IntoResponse
     ApiResponse::success_with_message(
         HealthStatus {
             status: "OK".to_string(),
-            service: "Sorai".to_string(),
+            service: "Radium".to_string(),
             version: env!("CARGO_PKG_VERSION").to_string(),
         },
         "healthy".to_string(),
