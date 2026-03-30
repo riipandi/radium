@@ -108,7 +108,7 @@ http://localhost:8000
 
 ## Performance Benchmarks
 
-Here are example benchmarks using [oha](https://github.com/hatoo/oha) HTTP load generator:
+Here are example benchmarks using [bombardier](https://github.com/codesenberg/bombardier) HTTP benchmarking tool:
 
 ### Health Check Endpoint Performance
 
@@ -119,51 +119,34 @@ Here are example benchmarks using [oha](https://github.com/hatoo/oha) HTTP load 
 - **Environment**: local development server
 
 ```sh
-oha -n 2500 -c 100 --latency-correction http://localhost:8000/healthz
+bombardier -c 125 -n 100000 -m GET http://localhost:8000/healthz
 ```
 
 **Example Results:**
 ```
-Summary:
-  Success rate: 100.00%
-  Total:        0.0886 secs
-  Slowest:      0.0078 secs
-  Fastest:      0.0001 secs
-  Average:      0.0034 secs
-  Requests/sec: 28203.6793
-
-  Total data:   183.11 KiB
-  Size/request: 75 B
-  Size/sec:     2.02 MiB
-
-Response time histogram:
-  0.000 [1]   |
-  0.001 [103] |■■■■■■
-  0.002 [225] |■■■■■■■■■■■■■
-  0.002 [308] |■■■■■■■■■■■■■■■■■■
-  0.003 [453] |■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.004 [539] |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.005 [442] |■■■■■■■■■■■■■■■■■■■■■■■■■■
-  0.005 [244] |■■■■■■■■■■■■■■
-  0.006 [130] |■■■■■■■
-  0.007 [45]  |■■
-  0.008 [10]  |
+Statistics        Avg      Stdev        Max
+  Reqs/sec     35160.01    8333.65   46008.85
+  Latency        3.55ms     2.04ms    44.74ms
+  HTTP codes:
+    1xx - 0, 2xx - 100000, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:    16.64MB/s
 ```
 
 ### Load Testing Different Scenarios
 
 ```sh
 # Light load - 50 concurrent users, 1000 requests
-oha -n 1000 -c 50 http://localhost:8000/healthz
+bombardier -n 1000 -c 50 http://localhost:8000/healthz
 
 # Medium load - 100 concurrent users, 2500 requests with 10s duration
-oha -z 10s -n 2500 -c 100 http://localhost:8000/healthz
+bombardier -d 10s -n 2500 -c 100 http://localhost:8000/healthz
 
 # Heavy load - 500 concurrent users, 10000 requests
-oha -z 10s -n 10000 -c 500 http://localhost:8000/healthz
+bombardier -d 10s -n 10000 -c 500 http://localhost:8000/healthz
 
 # Sustained load test - 30 seconds duration
-oha -c 100 -z 30s http://localhost:8000/healthz
+bombardier -c 100 -d 30s http://localhost:8000/healthz
 ```
 
 ### API Endpoint Benchmarks
@@ -172,10 +155,10 @@ For testing actual LLM proxy endpoints:
 
 ```sh
 # Test chat completions endpoint (requires valid API key)
-oha -n 100 -c 10 -m POST \
+bombardier -n 100 -c 10 -m POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your-api-key" \
-  -d '{"model":"gpt-4o-mini","messages":[{"role":"user","content":"Hello"}]}' \
+  -b '{"model":"gpt-4o-mini","messages":[{"role":"user","content":"Hello"}]}' \
   http://localhost:8000/v1/chat/completions
 ```
 
