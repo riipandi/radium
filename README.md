@@ -113,8 +113,8 @@ Here are example benchmarks using [bombardier](https://github.com/codesenberg/bo
 ### Health Check Endpoint Performance
 
 **Test Configuration:**
-- **Concurrent Connections**: 125
-- **Total Requests**: 100,000
+- **Concurrent connections**: 125
+- **Number of requests**: 100,000
 - **Target**: `GET /healthz`
 - **Environment**: local development server
 
