@@ -5,7 +5,7 @@ mod database;
 mod logging;
 mod mailer;
 mod session;
-mod sorai;
+mod radium;
 mod storage;
 
 pub use builder::*;

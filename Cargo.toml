@@ -11,12 +11,12 @@ rust-version = "1.93"
 # Shared dependencies for all workspace members
 
 [package]
-name = "sorai"
+name = "radium"
 version = "0.0.1"
 description = "Fast LLM gateway written in Rust"
 authors = ["Aris Ripandi <aris@duck.com>"]
-repository = "https://github.com/riipandi/sorai"
-documentation = "https://github.com/riipandi/sorai"
+repository = "https://github.com/riipandi/radium"
+documentation = "https://github.com/riipandi/radium"
 keywords = ["axum", "api", "llm", "proxy", "gateway"]
 license = "Apache-2.0"
 rust-version = "1.93"

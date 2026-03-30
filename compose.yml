@@ -2,7 +2,7 @@
 
 # echo "$GH_TOKEN" | docker login ghcr.io --password-stdin -u GITHUB_USERNAME
 
-name: sorai
+name: radium
 
 services:
   libsql:
@@ -28,7 +28,7 @@ services:
         soft: 262144
         hard: 262144
     extra_hosts: ['host.docker.internal:host-gateway']
-    networks: ['sorai_network']
+    networks: ['intranet']
 
   mailpit:
     image: axllent/mailpit:${MAILPIT_VERSION:-latest}
@@ -46,7 +46,7 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: true
       MP_SMTP_AUTH: 'maileruser1:mailerpass1 maileruser2:mailerpass2'
     extra_hosts: ['host.docker.internal:host-gateway']
-    networks: ['sorai_network']
+    networks: ['intranet']
 
   # ================================================================================================
   # LGTM Stack
@@ -69,7 +69,7 @@ services:
       - '55679:55679' # zpages
     restart: unless-stopped
     extra_hosts: ['host.docker.internal:host-gateway']
-    networks: ['sorai_network']
+    networks: ['intranet']
     depends_on:
       - tempo
 
@@ -85,7 +85,7 @@ services:
     volumes: ['tempo-data:/var/tempo:rw']
     restart: unless-stopped
     extra_hosts: ['host.docker.internal:host-gateway']
-    networks: ['sorai_network']
+    networks: ['intranet']
 
   prometheus:
     image: prom/prometheus:${PROMETHEUS_VERSION:-latest}
@@ -107,7 +107,7 @@ services:
         target: /etc/prometheus/prometheus.yml
     restart: unless-stopped
     extra_hosts: ['host.docker.internal:host-gateway']
-    networks: ['sorai_network']
+    networks: ['intranet']
     depends_on:
       - otel-collector
 
@@ -121,7 +121,7 @@ services:
       GF_SERVER_HTTP_PORT: '3300'
       GF_SERVER_HTTP_ADDR: '0.0.0.0'
       GF_PATHS_PROVISIONING: '/etc/grafana/provisioning'
-      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: '/var/lib/grafana/dashboards/sorai-dashboard.json'
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: '/var/lib/grafana/dashboards/radium-dashboard.json'
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: 'false' # Disable initial admin creation
       GF_SECURITY_ADMIN_EMAIL: 'admin@example.com' # Default admin email for Grafana
       GF_SECURITY_ADMIN_PASSWORD: 'admin' # Default admin password for Grafana
@@ -144,7 +144,7 @@ services:
         target: /etc/grafana/provisioning/datasources/datasources.yml
     restart: unless-stopped
     extra_hosts: ['host.docker.internal:host-gateway']
-    networks: ['sorai_network']
+    networks: ['intranet']
 
   # ================================================================================================
   # Configuration file
@@ -256,7 +256,7 @@ configs:
         - job_name: "tempo"
           static_configs:
             - targets: ["tempo:3200"]
-        - job_name: "sorai-api"
+        - job_name: "radium-api"
           static_configs:
             - targets: ["host.docker.internal:8000"]
 
@@ -297,5 +297,5 @@ volumes:
     driver: local
 
 networks:
-  sorai_network:
+  intranet:
     driver: bridge

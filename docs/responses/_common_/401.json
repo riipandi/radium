@@ -1,5 +1,5 @@
 {
-  "is_sorai_error": true,
+  "is_radium_error": true,
   "status_code": 401,
   "error": {
     "type": "authentication_error",
